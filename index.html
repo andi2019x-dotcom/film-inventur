@@ -1,40 +1,46 @@
-<!DOCTYPE html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Film-Inventur</title><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#1d3b3a">
+<!DOCTYPE html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Film-Inventur</title><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#14110f">
 <script src="https://accounts.google.com/gsi/client" async></script>
 <style>
-:root{--bg:#f1efe9;--c:#fff;--t:#1d1d1b;--m:#6d6a62;--l:#dedbd2;--a:#1d3b3a;--at:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media(prefers-color-scheme:dark){:root{--bg:#161715;--c:#222320;--t:#ecebe5;--m:#a09d93;--l:#363631;--a:#8fc4bd;--at:#10201f}}
+:root{--bg:#e9e5da;--c:#f7f4ec;--t:#1b1713;--m:#6e675a;--l:#cfc8b6;--a:#1b1713;--at:#f3b705;--ky:#f3b705;--rb:#b8520a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root{--bg:#12100e;--c:#1c1916;--t:#ece5d6;--m:#a39b8a;--l:#35302a;--a:#f3b705;--at:#14110e;--rb:#f08a2b}}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--t);font:16px/1.4 "Segoe UI",Roboto,system-ui,sans-serif}
-header{position:sticky;top:0;background:var(--bg);z-index:5;padding:8px 12px;border-bottom:1px solid var(--l)}
-h1{font:600 20px Georgia,serif;margin:0;display:flex;justify-content:space-between;align-items:center;gap:8px}
-#ms{font:12px sans-serif;color:var(--m);font-weight:400}
-nav{display:flex;gap:6px;margin-top:8px}nav button{flex:1}
-main{padding:10px 12px 80px;max-width:760px;margin:auto}
-button,select,input,textarea{font:inherit;color:var(--t);background:var(--c);border:1px solid var(--l);border-radius:8px;padding:8px 10px}
-button{cursor:pointer}button.on,button.pr{background:var(--a);color:var(--at);border-color:var(--a)}button.rd{color:#b42318}
-.cd{background:var(--c);border:1px solid var(--l);border-radius:10px;padding:10px 12px;margin:8px 0}
-.r1{display:flex;flex-wrap:wrap;gap:6px;align-items:center}.r1 b{font-size:17px;margin-right:auto}
+header{position:sticky;top:0;background:#14110f;color:#ece5d6;z-index:5;padding:8px 12px 0}
+header::after{content:"";display:block;height:12px;margin:10px -12px 0;background:radial-gradient(circle at 9px 6px,var(--bg) 3.5px,transparent 4px) 0 0/18px 12px repeat-x}
+h1{font:700 21px Georgia,serif;color:var(--ky);margin:0;display:flex;justify-content:space-between;align-items:center;gap:8px}
+#ms{font:12px "Courier New",monospace;color:#a39b8a;font-weight:400;margin-left:auto}
+nav{display:flex;gap:6px;margin-top:8px}nav button{flex:1;background:transparent;color:#ece5d6;border-color:#4a4338}nav button.on{background:var(--ky);color:#14110f;border-color:var(--ky)}
+header #sy{background:transparent;color:var(--ky);border-color:#4a4338;padding:4px 10px}
+main{padding:12px 12px 80px;max-width:760px;margin:auto}
+button,select,input,textarea{font:inherit;color:var(--t);background:var(--c);border:1px solid var(--l);border-radius:6px;padding:8px 10px}
+button{cursor:pointer}button.pr{background:var(--a);color:var(--at);border-color:var(--a)}button.rd{color:#b42318}
+.cd{background:var(--c);border:1px solid var(--l);border-left:8px solid var(--l);border-radius:4px 10px 10px 4px;padding:10px 12px;margin:8px 0}
+.t0{border-left-color:#e8761e}.t1{border-left-color:#9a968c}.t2{border-left-color:#3a8f87}.fc{border-left-color:var(--ky)}
+.r1{display:flex;flex-wrap:wrap;gap:6px;align-items:center}.r1 b{font:700 17px Georgia,serif;margin-right:auto}
 .r2{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:6px}
-.ch{font-size:12px;border:1px solid var(--l);border-radius:20px;padding:1px 8px;color:var(--m)}
+.ch{font:12px "Courier New",monospace;color:var(--rb);border:1px solid var(--rb);border-radius:3px;padding:1px 6px}
 .bar{height:6px;background:var(--l);border-radius:3px;margin-top:8px;overflow:hidden}.bar i{display:block;height:100%}
-.q{display:flex;align-items:center;gap:8px}.q b{min-width:28px;text-align:center;font-size:20px}.q button{width:38px;height:38px;padding:0;font-size:20px}
+.q{display:flex;align-items:center;gap:8px}.q b{min-width:28px;text-align:center;font:700 22px Georgia,serif}.q button{width:38px;height:38px;padding:0;font-size:20px}
 small,.m{color:var(--m);font-size:13px}
 .sum{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:4px 0 8px}.sum small{width:100%}.w{padding:2px 10px;border-radius:20px;font-size:13px;color:#fff}.w.r{background:#c0392b}.w.o{background:#d4701c}
 .fl{display:flex;gap:6px;flex-wrap:wrap}.fl select{flex:1;min-width:100px}
-.st{font-size:12px;padding:2px 8px;border-radius:20px;background:var(--l)}.s1{background:#f6d36b;color:#222}.s2{background:#9fd0c8;color:#222}.s3{background:var(--a);color:var(--at)}
-.th{width:100%;max-height:90px;object-fit:cover;border-radius:6px;margin-bottom:6px}
-dialog{width:min(580px,94vw);max-height:92vh;overflow:auto;border:0;border-radius:14px;background:var(--c);color:var(--t)}dialog::backdrop{background:#0008}
+.st{font:12px "Courier New",monospace;padding:2px 8px;border-radius:3px;background:var(--l)}.s1{background:#f3b705;color:#14110f}.s2{background:#9fd0c8;color:#14110f}.s3{background:var(--a);color:var(--at)}
+.th{width:100%;max-height:90px;object-fit:cover;border-radius:4px;margin-bottom:6px}
+.stt{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}.bn{background:#14110f;color:var(--ky);border-radius:8px;padding:10px 12px}.bn b{display:block;font:700 34px/1 Georgia,serif}.bn span{font-size:12px;color:#d8cfbb}
+.bl{background:var(--c);border:1px solid var(--l);border-radius:8px;padding:8px 10px}.bl.wd{grid-column:1/-1}.bl h4{margin:0 0 6px;font:700 13px Georgia,serif}
+.sb{display:flex;height:14px;border-radius:3px;overflow:hidden;gap:2px;margin-bottom:4px}.sb i{display:block}.lg{display:inline-flex;align-items:center;gap:4px;margin-right:10px}.lg u{width:9px;height:9px;border-radius:2px;display:inline-block}
+dialog{width:min(580px,94vw);max-height:92vh;overflow:auto;border:0;border-radius:12px;background:var(--c);color:var(--t)}dialog::backdrop{background:#0008}
 dialog label{display:block;font-size:13px;color:var(--m);margin-top:8px}dialog input,dialog select,dialog textarea{width:100%;display:block;margin-top:2px}
 .bt{display:flex;gap:8px;justify-content:flex-end;margin-top:14px}
-.tb{display:flex;gap:6px;margin-top:10px}.tb button,.ib{padding:6px 12px;border:1px solid var(--l);border-radius:8px;margin:0;color:var(--t);cursor:pointer}
-#nt{min-height:120px;border:1px solid var(--l);border-radius:8px;padding:8px;margin-top:6px}#nt img,.cp{max-width:100%}.cp{border-radius:8px;margin-top:6px}
+.tb{display:flex;gap:6px;margin-top:10px}.tb button,.ib{padding:6px 12px;border:1px solid var(--l);border-radius:6px;margin:0;color:var(--t);cursor:pointer}
+#nt{min-height:120px;border:1px solid var(--l);border-radius:6px;padding:8px;margin-top:6px}#nt img,.cp{max-width:100%}.cp{border-radius:6px;margin-top:6px}
 footer{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
 </style></head><body>
 <header><h1>Film-Inventur <span id="ms"></span><button id="sy">⟳ Sync</button></h1><nav><button data-v="inv">Bestand</button><button data-v="films">Filme</button></nav></header>
 <main id="main"></main>
 <dialog id="d"></dialog>
 <script>
-// Build 1 – bei jeder Änderung BUILD hier und V in sw.js erhöhen
-const BUILD=1,ALLF=['120 6x6','120 6x4,5','120','135','135w','Instant'],ST=['entnommen','belichtet','entwickelt','gescannt'],TYP=['Farbe','S/W','Instant'];
+// Build 2 – bei jeder Änderung BUILD hier und V in sw.js erhöhen
+const BUILD=2,ALLF=['120 6x6','120 6x4,5','120','135','135w','Instant'],ST=['entnommen','belichtet','entwickelt','gescannt'],TYP=['Farbe','S/W','Instant'];
 const $=s=>document.querySelector(s),uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6),now=()=>Date.now(),today=()=>new Date().toISOString().slice(0,10),
 esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])),
 op=(a,v)=>a.map(o=>`<option value="${esc(o)}" ${o==v?'selected':''}>${esc(o)}</option>`).join('');
@@ -48,16 +54,24 @@ const mo=e=>{if(!e)return null;const[y,m]=e.split('-');return(new Date(y,m,0,23,
 const fname=f=>{let n=f.name||'';if(f.iso&&!n.includes(f.iso))n+=' '+f.iso;if(f.eiso&&f.eiso!=f.iso)n+='@'+f.eiso;return n};
 function ex(r){const m=mo(r.exp);if(m===null)return['#8a877e',100,'Ablauf unbekannt'];const d=r.exp.split('-').reverse().join('/');if(m<0)return['#c0392b',100,`abgelaufen (${d})`];const n=Math.round(m);return[m<3?'#d4701c':m<12?'#e0b400':'#2e8b57',Math.max(6,Math.min(100,m/36*100)),`${d} · noch ${n} Mon.`]}
 function render(){$('nav button.on')?.classList.remove('on');document.querySelector(`nav [data-v=${view}]`).classList.add('on');$('#main').innerHTML=view=='inv'?rInv():rFilms()+''}
+function stats(A){const n=A.reduce((s,r)=>s+r.qty,0),by=(f,k)=>k.map(x=>[x,A.filter(r=>f(r)==x).reduce((s,r)=>s+r.qty,0)]);
+const eb={a:0,b:0,c:0,d:0,u:0};A.forEach(r=>{const m=mo(r.exp);eb[m===null?'u':m<0?'a':m<3?'b':m<12?'c':'d']+=r.qty});
+const F=S.films.filter(f=>!f.del),cams={};F.forEach(f=>{if(f.cam)cams[f.cam]=(cams[f.cam]||0)+1});const top=Object.entries(cams).sort((a,b)=>b[1]-a[1]).slice(0,4);
+const bar=(a,c)=>`<div class="sb">${a.map((x,i)=>x[1]?`<i style="flex:${x[1]};background:${c[i]}"></i>`:'').join('')}</div><small>${a.map((x,i)=>`<span class="lg"><u style="background:${c[i]}"></u>${x[0]} ${x[1]}</span>`).join('')}</small>`;
+return`<section class="stt"><div class="bn"><b>${n}</b><span>Filme im Lager</span></div><div class="bn"><b>${F.length}</b><span>Filme getrackt</span></div>
+<div class="bl"><h4>Typ</h4>${bar(by(r=>r.type,TYP),['#e8761e','#9a968c','#3a8f87'])}</div><div class="bl"><h4>Format</h4>${bar(by(r=>r.fmt,['120','135','Instant']),['#d9a21b','#6c8cc0','#3a8f87'])}</div>
+<div class="bl wd"><h4>Haltbarkeit</h4>${bar([['abgelaufen',eb.a],['<3 Mon.',eb.b],['3–12 Mon.',eb.c],['>12 Mon.',eb.d],['ohne Datum',eb.u]],['#c0392b','#d4701c','#e0b400','#2e8b57','#8a877e'])}</div>
+<div class="bl wd"><h4>Entwicklungsstand</h4>${bar(ST.map(x=>[x,F.filter(f=>f.st==x).length]),['#9a968c','#f3b705','#9fd0c8','#2e8b57'])}${top.length?`<div style="margin-top:6px">${top.map(c=>`<span class="ch">${esc(c[0])} ${c[1]}</span>`).join(' ')}</div>`:''}</div></section>`}
 function rInv(){const A=S.inv.filter(r=>!r.del);let ab=0,so=0;A.forEach(r=>{const m=mo(r.exp);if(m!==null){if(m<0)ab+=r.qty;else if(m<3)so+=r.qty}});
 const L=A.filter(r=>(!fF||r.fmt==fF)&&(!fT||r.type==fT));L.sort((a,b)=>{let x=a[sk],y=b[sk];if(sk=='exp'){x=x||'9999';y=y||'9999'}const c=typeof x=='number'?x-y:String(x).localeCompare(String(y),'de');return asc?c:-c});
-return`<div class="sum"><b>${A.reduce((s,r)=>s+r.qty,0)} Filme</b>${ab?`<span class="w r">${ab} abgelaufen</span>`:''}${so?`<span class="w o">${so} laufen bald ab</span>`:''}<small>Zuletzt gezählt: ${S.lc||'nie'} <button data-a="count">Alles gezählt</button></small></div>
+return stats(A)+`<div class="sum"><b>${A.reduce((s,r)=>s+r.qty,0)} Filme</b>${ab?`<span class="w r">${ab} abgelaufen</span>`:''}${so?`<span class="w o">${so} laufen bald ab</span>`:''}<small>Zuletzt gezählt: ${S.lc||'nie'} <button data-a="count">Alles gezählt</button></small></div>
 <div class="fl"><select data-f="sk">${[['brand','Marke'],['fmt','Format'],['type','Farbe/S-W'],['iso','ISO'],['exp','Ablaufdatum'],['qty','Stückzahl']].map(o=>`<option value="${o[0]}" ${o[0]==sk?'selected':''}>Sortiert: ${o[1]}</option>`).join('')}</select><button data-a="asc">${asc?'↑':'↓'}</button><select data-f="fF"><option value="">Alle Formate</option>${op(['120','135','Instant'],fF)}</select><select data-f="fT"><option value="">Farbe+S/W</option>${op(TYP,fT)}</select></div>
-${L.map(r=>{const e=ex(r);return`<div class="cd"><div class="r1"><b>${esc(r.brand)}</b><span class="ch">${r.fmt}${r.len?' / '+r.len:''}</span><span class="ch">${r.type}</span><span class="ch">ISO ${r.iso}</span></div><div class="bar"><i style="width:${e[1]}%;background:${e[0]}"></i></div>
+${L.map(r=>{const e=ex(r);return`<div class="cd t${TYP.indexOf(r.type)}"><div class="r1"><b>${esc(r.brand)}</b><span class="ch">${r.fmt}${r.len?' / '+r.len:''}</span><span class="ch">${r.type}</span><span class="ch">ISO ${r.iso}</span></div><div class="bar"><i style="width:${e[1]}%;background:${e[0]}"></i></div>
 <div class="r2"><small>${e[2]}${r.note?' · '+esc(r.note):''}<br>gezählt ${r.cnt||'–'}</small><span class="q"><button data-a="q-" data-i="${r.id}">−</button><b>${r.qty}</b><button data-a="q+" data-i="${r.id}">+</button></span></div>
 <div class="r2"><button data-a="take" data-i="${r.id}" class="pr">Film entnehmen</button><button data-a="edit" data-i="${r.id}">Bearbeiten</button></div></div>`}).join('')}
 <footer><button data-a="add">+ Eintrag</button><button data-a="cam">+ Kamera</button><button data-a="cid">Client-ID</button><small>Build ${BUILD}</small></footer>`}
 function rFilms(){const L=S.films.filter(f=>!f.del&&(!fS||f.st==fS)).sort((a,b)=>b.no-a.no);
-return`<div class="fl"><select data-f="fS"><option value="">Alle Status</option>${op(ST,fS)}</select><button data-a="fadd">+ Film</button></div>`+(L.map(f=>`<div class="cd" data-a="fedit" data-i="${f.id}">${f.contact?`<img class="th" src="${f.contact}">`:''}<div class="r1"><b>#${f.no} ${esc(fname(f))}</b><span class="st s${ST.indexOf(f.st)}">${f.st}</span></div><div class="r2"><small>${[f.cam,f.fmt,f.exposed&&'belichtet '+f.exposed,f.place,f.developed&&'entw. '+f.developed,f.chem].filter(Boolean).map(esc).join(' · ')}</small></div></div>`).join('')||'<p class="m">Noch keine Filme. Im Bestand „Film entnehmen“ tippen.</p>')}
+return`<div class="fl"><select data-f="fS"><option value="">Alle Status</option>${op(ST,fS)}</select><button data-a="fadd">+ Film</button></div>`+(L.map(f=>`<div class="cd fc" data-a="fedit" data-i="${f.id}">${f.contact?`<img class="th" src="${f.contact}">`:''}<div class="r1"><b>#${f.no} ${esc(fname(f))}</b><span class="st s${ST.indexOf(f.st)}">${f.st}</span></div><div class="r2"><small>${[f.cam,f.fmt,f.exposed&&'belichtet '+f.exposed,f.place,f.developed&&'entw. '+f.developed,f.chem].filter(Boolean).map(esc).join(' · ')}</small></div></div>`).join('')||'<p class="m">Noch keine Filme. Im Bestand „Film entnehmen“ tippen.</p>')}
 function dlg(t,F,v,ok,exh,op2,del){const d=$('#d');d.innerHTML=`<form method="dialog"><h3>${t}</h3>${F.map(f=>`<label>${f.l}${f.t=='select'?`<select name="${f.k}">${op(f.o,v[f.k])}</select>`:f.t=='area'?`<textarea name="${f.k}" rows="2">${esc(v[f.k])}</textarea>`:`<input name="${f.k}" type="${f.t||'text'}" value="${esc(v[f.k])}">`}</label>`).join('')}${exh||''}<div class="bt"><button>Abbrechen</button>${del?'<button type="button" id="dl" class="rd">Löschen</button>':''}<button type="button" id="sv" class="pr">Speichern</button></div></form>`;
 const fm=d.querySelector('form');$('#sv').onclick=async()=>{if(await ok(Object.fromEntries(new FormData(fm)))!==false)d.close()};if(del)$('#dl').onclick=()=>{if(confirm('Wirklich löschen?')){del();d.close()}};op2&&op2(d);d.showModal()}
 function openInv(r,isNew){dlg(isNew?'Neuer Eintrag':'Bearbeiten',[{k:'brand',l:'Marke / Film'},{k:'fmt',l:'Format',t:'select',o:['120','135','Instant']},{k:'len',l:'Aufnahmen (z. B. 36)'},{k:'type',l:'Farbe / S/W',t:'select',o:TYP},{k:'iso',l:'ISO',t:'number'},{k:'exp',l:'Ablauf (Monat)',t:'month'},{k:'qty',l:'Stückzahl (Einzelfilme)',t:'number'},{k:'note',l:'Notiz',t:'area'}],r,d=>{Object.assign(r,d,{iso:+d.iso||0,qty:+d.qty||0,cnt:today(),u:now()});if(isNew)S.inv.push(r);save()},'',null,isNew?null:()=>{r.del=1;r.u=now();save()})}
