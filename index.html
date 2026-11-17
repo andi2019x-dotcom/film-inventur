@@ -41,12 +41,12 @@ footer{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
 <main id="main"></main>
 <dialog id="d"></dialog>
 <script>
-// Build 8 – bei jeder Änderung BUILD hier und V in sw.js erhöhen
-const BUILD=8,ALLF=['120 6x6','120 6x4,5','120','135','135w','Instant'],ST=['entnommen','belichtet','entwickelt','gescannt'],TYP=['Farbe','S/W','Instant'];
+// Build 9 – bei jeder Änderung BUILD hier und V in sw.js erhöhen
+const BUILD=9,ALLF=['120 6x6','120 6x4,5','120','135','135w','Instant'],ST=['entnommen','belichtet','entwickelt','gescannt'],TYP=['Farbe','S/W','Instant'];
 const $=s=>document.querySelector(s),uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6),now=()=>Date.now(),today=()=>new Date().toISOString().slice(0,10),
 esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])),
 op=(a,v)=>a.map(o=>`<option value="${esc(o)}" ${o==v?'selected':''}>${esc(o)}</option>`).join('');
-let S,view='inv',sk='exp',asc=true,fF='',fT='',fS='',tok,tokExp=0,tm;
+let S,view='inv',sk='std',fI='',fL='',asc=true,fF='',fT='',fS='',tok,tokExp=0,tm;
 const db=new Promise(r=>{const q=indexedDB.open('fi',1);q.onupgradeneeded=()=>q.result.createObjectStore('s');q.onsuccess=()=>r(q.result)});
 const idbGet=async k=>{const d=await db;return new Promise(r=>{const q=d.transaction('s').objectStore('s').get(k);q.onsuccess=()=>r(q.result)})};
 const idbSet=async(k,v)=>{const d=await db;return new Promise(r=>{const t=d.transaction('s','readwrite');t.objectStore('s').put(v,k);t.oncomplete=r})};
@@ -59,7 +59,7 @@ function ex(r){const m=mo(r.exp);if(m===null)return['#8a877e',100,'Ablauf unbeka
 const ISOS=[12,25,50,64,80,100,125,160,200,250,320,400,500,640,800,1000,1250,1600,3200,6400],isoL=v=>['',...[...new Set([...ISOS,+v].filter(x=>x>0))].sort((a,b)=>a-b)];
 const C41=[['3:15','4:00'],['3:30','6:00'],['3:45','10:00'],['4:00','15:00']],BC={kodak:'#f3b705',fuji:'#2e9e5b',fujicolor:'#2e9e5b',kentmere:'#d63384',agfa:'#d0302a',ilford:'#6d6d6d',fomapan:'#2a5db0',wolfen:'#2b2b2b',adox:'#e2231a'};
 let open=new Set(),fM='',fE='',fC='',fK='',qq='',qf='',cont='',simg='';
-const SET={sk:v=>sk=v,fF:v=>fF=v,fT:v=>fT=v,fM:v=>fM=v,fE:v=>fE=v,fS:v=>fS=v,fC:v=>fC=v,fK:v=>fK=v,qq:v=>qq=v,qf:v=>qf=v};
+const SET={sk:v=>sk=v,fF:v=>fF=v,fT:v=>fT=v,fM:v=>fM=v,fE:v=>fE=v,fS:v=>fS=v,fC:v=>fC=v,fK:v=>fK=v,qq:v=>qq=v,qf:v=>qf=v,fI:v=>fI=v,fL:v=>fL=v};
 const sfull=s=>`${s.brand} ${s.name||''}`.trim(),slab=s=>sfull(s)+` · ${s.fmt}${s.len?'/'+s.len:''}`,
 pi=s=>s.img?`<img class="pi" src="${s.img}">`:`<div class="pi" style="background:${BC[(s.brand||'').toLowerCase()]||'#8a877e'}">${esc((s.brand||'?')[0])}</div>`,
 vals=k=>[...new Set(S.units.filter(u=>!u.del&&u[k]).map(u=>u[k]))].sort().reverse().slice(0,8),
@@ -78,14 +78,15 @@ return`<section class="stt"><div class="bn"><b>${n}</b><span>Filme im Lager</spa
 <div class="bl wd"><h4>Entwicklungsstand</h4>${bar(ST.map(x=>[x,F.filter(f=>f.st==x).length]),['#9a968c','#f3b705','#9fd0c8','#2e8b57'])}${top.length?`<div style="margin-top:6px">${top.map(c=>`<span class="ch">${esc(c[0])} ${c[1]}</span>`).join(' ')}</div>`:''}</div></section>`}
 function rInv(){const T=S.units.filter(u=>!u.del&&!u.out),SO=new Map(S.sorten.filter(x=>!x.del).map(s=>[s.id,s]));
 let G=[...SO.values()].map(s=>{const us=T.filter(u=>u.sid==s.id).sort((a,b)=>(a.exp||'9999').localeCompare(b.exp||'9999'));return{s,us,n:us.length,e:us.find(u=>u.exp)?.exp||''}}).filter(g=>g.n);
-let ab=0,so=0;T.forEach(u=>{const m=mo(u.exp);if(m!==null){if(m<0)ab++;else if(m<3)so++}});const brands=[...new Set(G.map(g=>g.s.brand))].sort();
+let ab=0,so=0;T.forEach(u=>{const m=mo(u.exp);if(m!==null){if(m<0)ab++;else if(m<3)so++}});const brands=[...new Set(G.map(g=>g.s.brand))].sort(),isos=[...new Set(G.map(g=>String(g.s.iso)))].sort((a,b)=>a-b),lens=[...new Set(G.map(g=>String(g.s.len||'')).filter(Boolean))].sort((a,b)=>a-b);
 const st=(m,k)=>k=='a'?m!==null&&m<0:k=='b'?m!==null&&m<3:k=='c'?m!==null&&m<12:m===null;
-G=G.filter(g=>(!fF||g.s.fmt==fF)&&(!fT||g.s.type==fT)&&(!fM||g.s.brand==fM)&&(mq(g.s,qq))&&(!fE||g.us.some(u=>st(mo(u.exp),fE))));
+G=G.filter(g=>(!fF||g.s.fmt==fF)&&(!fT||g.s.type==fT)&&(!fM||g.s.brand==fM)&&(!fI||String(g.s.iso)==fI)&&(!fL||String(g.s.len||'')==fL)&&(mq(g.s,qq))&&(!fE||g.us.some(u=>st(mo(u.exp),fE))));
 const K={brand:g=>sfull(g.s),fmt:g=>g.s.fmt,type:g=>g.s.type,iso:g=>g.s.iso,exp:g=>g.e||'9999',n:g=>g.n};
-G.sort((a,b)=>{const x=K[sk](a),y=K[sk](b),c=typeof x=='number'?x-y:String(x).localeCompare(String(y),'de');return asc?c:-c});
+const N=v=>{const n=parseFloat(v);return isNaN(n)?9999:n},STD=(a,b)=>(a.s.brand||'').trim().localeCompare((b.s.brand||'').trim(),'de')||(a.s.name||'').trim().localeCompare((b.s.name||'').trim(),'de')||N(a.s.iso)-N(b.s.iso)||N(a.s.fmt)-N(b.s.fmt)||N(a.s.len)-N(b.s.len);
+G.sort((a,b)=>{if(sk=='std'){const c=STD(a,b);return asc?c:-c}const x=K[sk](a),y=K[sk](b),c=typeof x=='number'?x-y:String(x).localeCompare(String(y),'de');return asc?c:-c});
 return stats(T,SO)+`<div class="sum"><b>${T.length} Filme</b>${ab?`<span class="w r">${ab} abgelaufen</span>`:''}${so?`<span class="w o">${so} laufen bald ab</span>`:''}<small>Zuletzt gezählt: ${S.lc||'nie'} <button data-a="count">Alles gezählt</button></small></div>
-<div class="fl"><input data-f="qq" placeholder="Suche" value="${esc(qq)}"><select data-f="sk">${[['brand','Marke'],['fmt','Format'],['type','Farbe/S-W'],['iso','ISO'],['exp','Ablauf'],['n','Stückzahl']].map(o=>`<option value="${o[0]}" ${o[0]==sk?'selected':''}>Sortiert: ${o[1]}</option>`).join('')}</select><button data-a="asc">${asc?'↑':'↓'}</button></div>
-<div class="fl"><select data-f="fF"><option value="">Alle Formate</option>${op(['120','135','Instant'],fF)}</select><select data-f="fT"><option value="">Farbe+S/W</option>${op(TYP,fT)}</select><select data-f="fM"><option value="">Alle Marken</option>${op(brands,fM)}</select><select data-f="fE"><option value="">Jedes Ablaufdatum</option><option value="a" ${fE=='a'?'selected':''}>abgelaufen</option><option value="b" ${fE=='b'?'selected':''}>&lt; 3 Monate</option><option value="c" ${fE=='c'?'selected':''}>&lt; 12 Monate</option><option value="u" ${fE=='u'?'selected':''}>ohne Datum</option></select></div>
+<div class="fl"><input data-f="qq" placeholder="Suche" value="${esc(qq)}"><select data-f="sk">${[['std','Marke, Name, ISO, Format'],['brand','Marke'],['fmt','Format'],['type','Farbe/S-W'],['iso','ISO'],['exp','Ablauf'],['n','Stückzahl']].map(o=>`<option value="${o[0]}" ${o[0]==sk?'selected':''}>Sortiert: ${o[1]}</option>`).join('')}</select><button data-a="asc">${asc?'↑':'↓'}</button></div>
+<div class="fl"><select data-f="fF"><option value="">Alle Formate</option>${op(['120','135','Instant'],fF)}</select><select data-f="fT"><option value="">Farbe+S/W</option>${op(TYP,fT)}</select><select data-f="fM"><option value="">Alle Marken</option>${op(brands,fM)}</select><select data-f="fI"><option value="">Alle ISO</option>${op(isos,fI)}</select><select data-f="fL"><option value="">Alle Aufnahmen</option>${op(lens,fL)}</select><select data-f="fE"><option value="">Jedes Ablaufdatum</option><option value="a" ${fE=='a'?'selected':''}>abgelaufen</option><option value="b" ${fE=='b'?'selected':''}>&lt; 3 Monate</option><option value="c" ${fE=='c'?'selected':''}>&lt; 12 Monate</option><option value="u" ${fE=='u'?'selected':''}>ohne Datum</option></select></div>
 ${G.map(g=>{const s=g.s,e=ex({exp:g.e}),no=g.us.filter(u=>!u.exp).length;return`<div class="cd t${TYP.indexOf(s.type)}"><div class="gh">${pi(s)}<div style="flex:1"><div class="r1"><b>${esc(sfull(s))}</b><span class="ch">${s.fmt}${s.len?' / '+s.len:''}</span><span class="ch">${s.type}</span><span class="ch">ISO ${s.iso}</span></div><div class="bar"><i style="width:${e[1]}%;background:${e[0]}"></i></div><small>${e[2]}${no&&g.e?` · ${no} ohne Datum`:''} · gezählt ${s.cnt||'–'}</small></div><div class="gn">${g.n}</div></div>
 <div class="r2"><button data-a="tog" data-i="${s.id}">${open.has(s.id)?'▴ Filme':'▾ Filme'}</button><button data-a="bulk" data-i="${s.id}">Datum setzen</button><button data-a="cnt" data-i="${s.id}">Zählen</button><button data-a="sedit" data-i="${s.id}">Sorte</button></div>
 ${open.has(s.id)?g.us.map(u=>{const x=ex(u);return`<div class="ur"><span><i class="dt" style="background:${x[0]}"></i>${x[2]}${u.bought?' · gekauft '+u.bought:' · Kaufdatum fehlt'}</span><button class="pr" data-a="utake" data-i="${u.id}">Entnehmen</button><button data-a="uedit" data-i="${u.id}">✎</button></div>`}).join(''):''}</div>`}).join('')||'<p class="m">Keine Filme gefunden.</p>'}
