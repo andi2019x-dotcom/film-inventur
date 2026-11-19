@@ -41,8 +41,8 @@ footer{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
 <main id="main"></main>
 <dialog id="d"></dialog>
 <script>
-// Build 12 – bei jeder Änderung BUILD hier und V in sw.js erhöhen
-const BUILD=12,ALLF=['120 6x6','120 6x4,5','120','135','135w','Instant'],ST=['entnommen','belichtet','entwickelt','gescannt'],TYP=['Farbe','S/W','Instant'];
+// Build 13 – bei jeder Änderung BUILD hier und V in sw.js erhöhen
+const BUILD=13,ALLF=['120 6x6','120 6x4,5','120','135','135w','Instant'],ST=['entnommen','belichtet','entwickelt','gescannt'],TYP=['Farbe','S/W','Instant'];
 const $=s=>document.querySelector(s),uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6),now=()=>Date.now(),today=()=>new Date().toISOString().slice(0,10),
 esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])),
 op=(a,v)=>a.map(o=>`<option value="${esc(o)}" ${o==v?'selected':''}>${esc(o)}</option>`).join('');
@@ -157,5 +157,5 @@ else{const b='fi'+uid();await J(await fetch(G+'upload/drive/v3/files?uploadType=
 if(push)localStorage.removeItem('pushNext');await idbSet('s',S);render();setMsg('Sync '+new Date().toLocaleTimeString('de').slice(0,5)+(l.files.length>1?' · ⚠ '+l.files.length+' Drive-Dateien!':'')+(push?' · Drive ersetzt':mt?' · Drive vorher '+new Date(mt).toLocaleString('de',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}):' · Drive neu'))}catch(e){setMsg('Sync-Fehler: '+(e.message||e))}}
 $('#sy').onclick=sync;
 if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js');
-(async()=>{S=migrate(await idbGet('s')||seed());await idbSet('s',S);render()})();
+(async()=>{S=migrate(await idbGet('s')||{sorten:[],units:[],films:[],cams:[],devs:[],lc:'',lcu:0});await idbSet('s',S);render()})();
 </script></body></html>
